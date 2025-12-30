@@ -133,7 +133,7 @@ export default function Sensors() {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-100">
                         Sensor Management
                     </h2>
 
@@ -158,7 +158,7 @@ export default function Sensors() {
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center space-x-2">
                                             <sensor.icon className="h-5 w-5 text-blue-600" />
-                                            <CardTitle className="text-lg font-semibold">
+                                            <CardTitle className="text-lg font-semibold dark:text-white">
                                                 {sensor.name}
                                             </CardTitle>
                                         </div>
@@ -181,10 +181,10 @@ export default function Sensors() {
                                     <div className="space-y-4">
                                         {/* Current Value */}
                                         <div className="text-center">
-                                            <div className="text-2xl font-bold text-gray-900">
+                                            <div className="text-2xl font-bold text-gray-900 dark:text-white">
                                                 {sensor.value}
                                             </div>
-                                            <div className="text-sm text-gray-600">
+                                            <div className="text-sm text-gray-600 dark:text-gray-400">
                                                 Last Reading: {sensor.lastReading}
                                             </div>
                                         </div>
@@ -192,8 +192,8 @@ export default function Sensors() {
                                         {/* Battery Level */}
                                         <div className="space-y-2">
                                             <div className="flex items-center justify-between text-sm">
-                                                <span className="text-gray-600">Battery</span>
-                                                <span className="font-medium">{sensor.battery}%</span>
+                                                <span className="text-gray-600 dark:text-gray-400">Battery</span>
+                                                <span className="font-medium dark:text-gray-200">{sensor.battery}%</span>
                                             </div>
                                             <Progress
                                                 value={sensor.battery}
@@ -203,7 +203,7 @@ export default function Sensors() {
 
                                         {/* Signal Strength */}
                                         <div className="flex items-center justify-between">
-                                            <span className="text-sm text-gray-600">Signal</span>
+                                            <span className="text-sm text-gray-600 dark:text-gray-400">Signal</span>
                                             <div className="flex items-center space-x-1">
                                                 {getSignalIcon(sensor.signalStrength)}
                                                 <span className="text-sm font-medium capitalize">
@@ -214,7 +214,7 @@ export default function Sensors() {
 
                                         {/* Calibration Status */}
                                         <div className="flex items-center justify-between">
-                                            <span className="text-sm text-gray-600">Calibration</span>
+                                            <span className="text-sm text-gray-600 dark:text-gray-400">Calibration</span>
                                             <Badge className={getCalibrationColor(sensor.calibration)}>
                                                 {sensor.calibration.replace('_', ' ')}
                                             </Badge>
@@ -249,7 +249,7 @@ export default function Sensors() {
                     <div className="mt-8">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg font-semibold">
+                                <CardTitle className="text-lg font-semibold dark:text-white">
                                     Sensor Management Tools
                                 </CardTitle>
                             </CardHeader>
@@ -258,8 +258,8 @@ export default function Sensors() {
                                     {/* Add New Sensor */}
                                     <div className="text-center p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-400 transition-colors">
                                         <Plus className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                                        <h3 className="font-semibold text-gray-900 mb-1">Add New Sensor</h3>
-                                        <p className="text-sm text-gray-600 mb-3">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Add New Sensor</h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                             Configure and add a new sensor to your network
                                         </p>
                                         <Button className="bg-green-600 hover:bg-green-700">
@@ -270,8 +270,8 @@ export default function Sensors() {
                                     {/* Calibration Scheduler */}
                                     <div className="text-center p-4 border rounded-lg bg-blue-50">
                                         <Settings className="h-12 w-12 text-blue-600 mx-auto mb-2" />
-                                        <h3 className="font-semibold text-gray-900 mb-1">Calibration Scheduler</h3>
-                                        <p className="text-sm text-gray-600 mb-3">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Calibration Scheduler</h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                             Schedule automatic calibration for your sensors
                                         </p>
                                         <Button variant="outline" className="border-blue-300 text-blue-700">
@@ -282,8 +282,8 @@ export default function Sensors() {
                                     {/* Alert Settings */}
                                     <div className="text-center p-4 border rounded-lg bg-yellow-50">
                                         <Activity className="h-12 w-12 text-yellow-600 mx-auto mb-2" />
-                                        <h3 className="font-semibold text-gray-900 mb-1">Alert Thresholds</h3>
-                                        <p className="text-sm text-gray-600 mb-3">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Alert Thresholds</h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                             Configure alert thresholds for sensor readings
                                         </p>
                                         <Button variant="outline" className="border-yellow-300 text-yellow-700">

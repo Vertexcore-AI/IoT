@@ -41,6 +41,36 @@ const waterUsageData = [
     { day: 'Sun', usage: 2.4 },
 ];
 
+const co2Data = [
+    { time: '00:00', value: 400 },
+    { time: '04:00', value: 420 },
+    { time: '08:00', value: 550 },
+    { time: '12:00', value: 800 },
+    { time: '16:00', value: 750 },
+    { time: '20:00', value: 500 },
+    { time: '24:00', value: 410 },
+];
+
+const humidityData = [
+    { time: '00:00', value: 85 },
+    { time: '04:00', value: 88 },
+    { time: '08:00', value: 82 },
+    { time: '12:00', value: 75 },
+    { time: '16:00', value: 78 },
+    { time: '20:00', value: 84 },
+    { time: '24:00', value: 86 },
+];
+
+const tempData = [
+    { time: '00:00', value: 21 },
+    { time: '04:00', value: 20 },
+    { time: '08:00', value: 23 },
+    { time: '12:00', value: 27 },
+    { time: '16:00', value: 26 },
+    { time: '20:00', value: 24 },
+    { time: '24:00', value: 22 },
+];
+
 export default function Statistics() {
     const [timeRange, setTimeRange] = useState('7d');
     const [selectedMetric, setSelectedMetric] = useState('vpd');
@@ -103,7 +133,7 @@ export default function Statistics() {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-100">
                         Analytics & Statistics
                     </h2>
 
@@ -111,18 +141,22 @@ export default function Statistics() {
             }
         >
             <Head title="Analytics & Statistics" />
-            <div className="flex justify-end">
-                        <select
-                            value={timeRange}
-                            onChange={(e) => setTimeRange(e.target.value)}
-                            className="rounded-sm border border-gray-300 px-3 py-2 text-xs bg-white"
-                        >
-                            <option value="24h">Last 24 Hours</option>
-                            <option value="7d">Last 7 Days</option>
-                            <option value="30d">Last 30 Days</option>
-                            <option value="90d">Last 90 Days</option>
-                        </select>
-                        <Button variant="outline" size="sm" className="ml-2">
+                    <div className="flex justify-end gap-2">
+                        <div className="relative inline-flex items-center">
+                            <Calendar className="absolute left-3 h-4 w-4 text-gray-500 pointer-events-none" />
+                            <select
+                                value={timeRange}
+                                onChange={(e) => setTimeRange(e.target.value)}
+                                className="appearance-none pl-9 pr-10 h-9 text-xs font-medium rounded-md border border-gray-300 bg-white hover:bg-gray-50 dark:bg-slate-950 dark:border-slate-800 dark:text-gray-100 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                            >
+                                <option value="24h">Last 24 Hours</option>
+                                <option value="7d">Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="90d">Last 90 Days</option>
+                            </select>
+                            <Filter className="absolute right-3 h-3 w-3 text-gray-400 pointer-events-none" />
+                        </div>
+                        <Button variant="outline" size="sm">
                             <Download className="h-4 w-4 mr-2" />
                             Export
                         </Button>
@@ -135,26 +169,26 @@ export default function Statistics() {
                             <Card key={key} className="hover:shadow-lg transition-shadow">
                                 <CardHeader className="pb-3">
                                     <div className="flex items-center justify-between">
-                                        <CardTitle className="text-lg font-semibold capitalize">
+                                        <CardTitle className="text-lg font-semibold capitalize dark:text-white">
                                             {key === 'vpd' ? 'VPD' : key === 'co2' ? 'CO₂' : key}
                                         </CardTitle>
                                         {getTrendIcon(data.trend)}
                                     </div>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-3xl font-bold text-gray-900 mb-2">
+                                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                                         {data.current}
                                         {key === 'vpd' ? ' kPa' : key === 'co2' ? ' ppm' : key === 'humidity' ? '%' : '°C'}
                                     </div>
-                                    <div className="text-sm text-gray-600 mb-2">
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                         Avg: {data.average}
                                         {key === 'vpd' ? ' kPa' : key === 'co2' ? ' ppm' : key === 'humidity' ? '%' : '°C'}
                                     </div>
-                                    <div className="text-sm text-gray-600 mb-3">
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                         Optimal: {data.optimalRange}
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Compliance</span>
+                                        <span className="text-sm text-gray-600 dark:text-gray-400">Compliance</span>
                                         <Badge className="bg-green-100 text-green-800">
                                             {data.compliance}%
                                         </Badge>
@@ -169,7 +203,7 @@ export default function Statistics() {
                         {/* VPD Analytics */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg font-semibold flex items-center">
+                                <CardTitle className="text-lg font-semibold flex items-center dark:text-white">
                                     <Activity className="h-5 w-5 mr-2 text-blue-600" />
                                     VPD Analytics
                                 </CardTitle>
@@ -188,15 +222,15 @@ export default function Statistics() {
                                 <div className="mt-4 grid grid-cols-3 gap-4 text-center">
                                     <div>
                                         <div className="text-lg font-bold text-green-600">87%</div>
-                                        <div className="text-xs text-gray-600">Optimal Range</div>
+                                        <div className="text-xs text-gray-600 dark:text-gray-400">Optimal Range</div>
                                     </div>
                                     <div>
                                         <div className="text-lg font-bold text-yellow-600">12%</div>
-                                        <div className="text-xs text-gray-600">Warning Zone</div>
+                                        <div className="text-xs text-gray-600 dark:text-gray-400">Warning Zone</div>
                                     </div>
                                     <div>
                                         <div className="text-lg font-bold text-red-600">1%</div>
-                                        <div className="text-xs text-gray-600">Critical Zone</div>
+                                        <div className="text-xs text-gray-600 dark:text-gray-400">Critical Zone</div>
                                     </div>
                                 </div>
                             </CardContent>
@@ -205,29 +239,29 @@ export default function Statistics() {
                         {/* CO₂ Analysis */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg font-semibold flex items-center">
+                                <CardTitle className="text-lg font-semibold flex items-center dark:text-white">
                                     <TrendingUp className="h-5 w-5 mr-2 text-green-600" />
                                     CO₂ Level Analysis
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                                    <div className="text-center">
-                                        <Activity className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                                        <span className="text-sm text-gray-500">Daily CO₂ Patterns</span>
-                                        <div className="text-xs text-gray-400 mt-1">
-                                            Enhancement Opportunities
-                                        </div>
-                                    </div>
-                                </div>
+                                <ChartContainer config={{ co2: { label: 'CO₂', color: '#10B981' } }}>
+                                    <LineChart data={co2Data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="time" />
+                                        <YAxis domain={[300, 1000]} />
+                                        <Tooltip />
+                                        <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ChartContainer>
                                 <div className="mt-4 space-y-3">
-                                    <div className="flex items-center justify-between p-2 bg-green-50 rounded">
-                                        <span className="text-sm">Peak Hours (10AM-2PM)</span>
-                                        <Badge className="bg-green-100 text-green-800">Optimal</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded border border-green-100 dark:border-green-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Peak Hours (10AM-2PM)</span>
+                                        <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Optimal</Badge>
                                     </div>
-                                    <div className="flex items-center justify-between p-2 bg-yellow-50 rounded">
-                                        <span className="text-sm">Night Hours (8PM-6AM)</span>
-                                        <Badge className="bg-yellow-100 text-yellow-800">Low</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-100 dark:border-yellow-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Night Hours (8PM-6AM)</span>
+                                        <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Low</Badge>
                                     </div>
                                 </div>
                             </CardContent>
@@ -237,10 +271,10 @@ export default function Statistics() {
                     {/* Performance Metrics */}
                     <Card className="mb-8">
                         <CardHeader>
-                            <CardTitle className="text-lg font-semibold flex items-center">
-                                <Target className="h-5 w-5 mr-2 text-purple-600" />
-                                System Performance Metrics
-                            </CardTitle>
+                                <CardTitle className="text-lg font-semibold flex items-center dark:text-white">
+                                    <Target className="h-5 w-5 mr-2 text-purple-600" />
+                                    System Performance Metrics
+                                </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -249,10 +283,10 @@ export default function Statistics() {
                                         <div className="flex items-center justify-center mb-2">
                                             {getTrendIcon(item.trend)}
                                         </div>
-                                        <div className="text-2xl font-bold text-gray-900 mb-1">
+                                        <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                                             {item.value}
                                         </div>
-                                        <div className="text-sm text-gray-600 mb-2">
+                                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                             {item.metric}
                                         </div>
                                         <Badge className={getStatusColor(item.status)}>
@@ -269,25 +303,28 @@ export default function Statistics() {
                         {/* Humidity Management */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg font-semibold">
+                                <CardTitle className="text-lg font-semibold dark:text-white">
                                     Humidity Management Trends
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center mb-4">
-                                    <div className="text-center">
-                                        <TrendingUp className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                                        <span className="text-sm text-gray-500">Humidity Trends</span>
-                                    </div>
-                                </div>
+                                <ChartContainer config={{ humidity: { label: 'Humidity', color: '#3B82F6' } }}>
+                                    <LineChart data={humidityData} height={180} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="time" />
+                                        <YAxis domain={[60, 100]} />
+                                        <Tooltip />
+                                        <Line type="monotone" dataKey="value" stroke="#3B82F6" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ChartContainer>
                                 <div className="space-y-3">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Fungal Risk Periods</span>
-                                        <Badge className="bg-red-100 text-red-800">2 incidents</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/20 rounded border border-red-100 dark:border-red-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Fungal Risk Periods</span>
+                                        <Badge className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">2 incidents</Badge>
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Optimal Humidity</span>
-                                        <Badge className="bg-green-100 text-green-800">85% time</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded border border-green-100 dark:border-green-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Optimal Humidity</span>
+                                        <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">85% time</Badge>
                                     </div>
                                 </div>
                             </CardContent>
@@ -296,25 +333,28 @@ export default function Statistics() {
                         {/* Temperature Control */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg font-semibold">
+                                <CardTitle className="text-lg font-semibold dark:text-white">
                                     Temperature Control Analysis
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="h-48 bg-gray-50 rounded-lg flex items-center justify-center mb-4">
-                                    <div className="text-center">
-                                        <Activity className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                                        <span className="text-sm text-gray-500">Temperature Cycles</span>
-                                    </div>
-                                </div>
+                                <ChartContainer config={{ temp: { label: 'Temperature', color: '#F59E0B' } }}>
+                                    <LineChart data={tempData} height={180} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="time" />
+                                        <YAxis domain={[15, 35]} />
+                                        <Tooltip />
+                                        <Line type="monotone" dataKey="value" stroke="#F59E0B" strokeWidth={2} dot={false} />
+                                    </LineChart>
+                                </ChartContainer>
                                 <div className="space-y-3">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Heat Stress Incidents</span>
-                                        <Badge className="bg-yellow-100 text-yellow-800">1 incident</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-100 dark:border-yellow-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Heat Stress Incidents</span>
+                                        <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">1 incident</Badge>
                                     </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-600">Optimal Range</span>
-                                        <Badge className="bg-green-100 text-green-800">94% time</Badge>
+                                    <div className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded border border-green-100 dark:border-green-900/30">
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Optimal Range</span>
+                                        <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">94% time</Badge>
                                     </div>
                                 </div>
                             </CardContent>
@@ -324,10 +364,10 @@ export default function Statistics() {
                     {/* Water Usage Statistics */}
                     <Card className="mt-8">
                         <CardHeader>
-                            <CardTitle className="text-lg font-semibold flex items-center">
-                                <Activity className="h-5 w-5 mr-2 text-blue-600" />
-                                Water Usage Statistics
-                            </CardTitle>
+                                <CardTitle className="text-lg font-semibold flex items-center dark:text-white">
+                                    <Activity className="h-5 w-5 mr-2 text-blue-600" />
+                                    Water Usage Statistics
+                                </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <ChartContainer config={{ usage: { label: 'Usage', color: '#3B82F6' } }}>
@@ -342,17 +382,17 @@ export default function Statistics() {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                                 <div className="text-center p-4 border rounded-lg">
                                     <div className="text-3xl font-bold text-blue-600 mb-2">2.5L</div>
-                                    <div className="text-sm text-gray-600 mb-2">Daily Usage</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Daily Usage</div>
                                     <div className="text-xs text-gray-500">Average over 7 days</div>
                                 </div>
                                 <div className="text-center p-4 border rounded-lg">
                                     <div className="text-3xl font-bold text-green-600 mb-2">94.2%</div>
-                                    <div className="text-sm text-gray-600 mb-2">Efficiency</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Efficiency</div>
                                     <div className="text-xs text-gray-500">Water utilization rate</div>
                                 </div>
                                 <div className="text-center p-4 border rounded-lg">
                                     <div className="text-3xl font-bold text-purple-600 mb-2">12</div>
-                                    <div className="text-sm text-gray-600 mb-2">Sessions/Day</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Sessions/Day</div>
                                     <div className="text-xs text-gray-500">Average watering sessions</div>
                                 </div>
                             </div>

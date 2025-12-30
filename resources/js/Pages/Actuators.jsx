@@ -209,7 +209,7 @@ export default function Actuators() {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-100">
                         Actuator Control
                     </h2>
                     <div className="flex items-center space-x-4 ml-2">
@@ -235,7 +235,7 @@ export default function Actuators() {
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center space-x-2">
                                             <actuator.icon className={`h-6 w-6 ${actuator.color}`} />
-                                            <CardTitle className="text-lg font-semibold">
+                                            <CardTitle className="text-lg font-semibold dark:text-white">
                                                 {actuator.name}
                                             </CardTitle>
                                         </div>
@@ -389,7 +389,7 @@ export default function Actuators() {
                     {/* Quick Actions */}
                     <Card>
                         <CardHeader>
-                            <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
+                            <CardTitle className="text-lg font-semibold dark:text-white">Quick Actions</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
