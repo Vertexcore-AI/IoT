@@ -77,43 +77,6 @@ export default function AuthenticatedLayout({ header, children }) {
                         </ul>
                     </li>
 
-                    <li className="mt-auto">
-                        <Separator className="my-4" />
-
-                        {/* User Profile */}
-                        <div className="px-2 py-3">
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <Button
-                                        variant="ghost"
-                                        className="w-full justify-between px-2 py-2 text-sm font-medium text-foreground hover:bg-muted"
-                                    >
-                                        <div className="flex items-center gap-x-3">
-                                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                                <User className="h-4 w-4 text-primary" />
-                                            </div>
-                                            <div className="text-left">
-                                                <p className="text-sm font-medium text-foreground">{user.name}</p>
-                                                <p className="text-xs text-muted-foreground">{user.email}</p>
-                                            </div>
-                                        </div>
-                                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                                    </Button>
-                                </Dropdown.Trigger>
-
-                                <Dropdown.Content className="w-56">
-                                    <Dropdown.Link href={route('profile.edit')} className="flex items-center gap-x-2">
-                                        <User className="h-4 w-4" />
-                                        Profile
-                                    </Dropdown.Link>
-                                    <Dropdown.Link href={route('logout')} method="post" as="button" className="flex items-center gap-x-2 text-red-600 hover:text-red-700">
-                                        <LogOut className="h-4 w-4" />
-                                        Log Out
-                                    </Dropdown.Link>
-                                </Dropdown.Content>
-                            </Dropdown>
-                        </div>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -174,14 +137,13 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Main content */}
             <div className="pt-0 lg:pl-64">
-                {/* Topbar for desktop only if header exists */}
-                {header && (
-                    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 hidden lg:flex">
-                        <div className="flex flex-1 items-center justify-between">
-                            <div className="flex-1">
-                                {header}
-                            </div>
-                            <div className="flex items-center space-x-4">
+                {/* Topbar for desktop */}
+                <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 hidden lg:flex">
+                    <div className="flex flex-1 items-center justify-between">
+                        <div className="flex-1">
+                            {header}
+                        </div>
+                        <div className="flex items-center space-x-4">
                                 <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:border-yellow-700">
                                     <AlertTriangle className="h-3 w-3 mr-1" />
                                     3 Alerts
@@ -189,11 +151,43 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <span className="text-sm text-muted-foreground">
                                     {new Date().toLocaleTimeString()}
                                 </span>
+                                <Separator orientation="vertical" className="h-6" />
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <Button
+                                            variant="ghost"
+                                            className="flex items-center gap-x-2 px-2 py-1 text-sm font-medium text-foreground hover:bg-muted"
+                                        >
+                                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                <User className="h-4 w-4 text-primary" />
+                                            </div>
+                                            <div className="hidden xl:block text-left">
+                                                <p className="text-xs font-medium text-foreground leading-tight">{user.name}</p>
+                                                <p className="text-[10px] text-muted-foreground leading-tight">{user.email}</p>
+                                            </div>
+                                            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                                        </Button>
+                                    </Dropdown.Trigger>
+
+                                    <Dropdown.Content className="w-56">
+                                        <div className="px-4 py-2 border-b border-border xl:hidden">
+                                            <p className="text-sm font-medium text-foreground">{user.name}</p>
+                                            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                        </div>
+                                        <Dropdown.Link href={route('profile.edit')} className="flex items-center gap-x-2">
+                                            <User className="h-4 w-4" />
+                                            Profile
+                                        </Dropdown.Link>
+                                        <Dropdown.Link href={route('logout')} method="post" as="button" className="flex items-center gap-x-2 text-red-600 hover:text-red-700">
+                                            <LogOut className="h-4 w-4" />
+                                            Log Out
+                                        </Dropdown.Link>
+                                    </Dropdown.Content>
+                                </Dropdown>
                                 <ModeToggle />
                             </div>
                         </div>
-                    </div>
-                )}
+                </div>
                 <main className="py-4 sm:py-6">
                     <div className="mx-auto w-full max-w-7xl px-2 sm:px-4 lg:px-8">
                         {children}
