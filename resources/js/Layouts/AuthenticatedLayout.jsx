@@ -43,7 +43,7 @@ export default function AuthenticatedLayout({ header, children }) {
             <div className="flex h-16 shrink-0 items-center px-6 border-b border-border">
                 <Link href="/" className="flex items-center">
                     <ApplicationLogo className="h-8 w-auto fill-current text-foreground" />
-                    <span className="ml-2 text-lg font-semibold text-foreground">AgroValley</span>
+                    <span className="ml-2 text-lg font-semibold text-foreground">AgriSense</span>
                 </Link>
             </div>
 

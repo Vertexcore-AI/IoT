@@ -134,7 +134,7 @@ export default function Sensors() {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-100">
-                        Sensor Management
+                        AgriSense Sensors
                     </h2>
 
                 </div>

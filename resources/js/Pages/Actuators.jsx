@@ -210,7 +210,7 @@ export default function Actuators() {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-100">
-                        Actuator Control
+                        AgriSense Controls
                     </h2>
                     <div className="flex items-center space-x-4 ml-2">
                         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-700">

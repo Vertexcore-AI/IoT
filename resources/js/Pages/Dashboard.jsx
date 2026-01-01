@@ -171,11 +171,11 @@ export default function Dashboard() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-foreground">
-                    AgriTech Dashboard
+                    AgriSense Dashboard
                 </h2>
             }
         >
-            <Head title="AgriTech Dashboard" />
+            <Head title="AgriSense Dashboard" />
 
             <div className="py-6">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -67,7 +67,7 @@ export default function WateringSchedule() {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                        Watering Schedule
+                        AgriSense Schedule
                     </h2>
 
                 </div>
@@ -106,7 +106,7 @@ export default function WateringSchedule() {
                                 {schedule.map((item, index) => (
                                     <div
                                         key={index}
-                                        className={`agritech-card p-4 ${
+                                        className={`agrisense-card p-4 ${
                                             item.status === 'active'
                                                 ? 'border-green-200 dark:border-green-700 dark:bg-green-900/20 dark:border-green-700'
                                                 : item.status === 'skip'
